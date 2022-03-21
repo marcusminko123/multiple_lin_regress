@@ -1,7 +1,7 @@
 Lab 10 - Grading the professor, Pt. 2
 ================
-Insert your name here
-Insert date here
+Marcus Minko
+3/20/2022
 
 ### Load packages and data
 

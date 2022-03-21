@@ -1,7 +1,7 @@
 ---
 title: "Lab 10 - Grading the professor, Pt. 2"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Marcus Minko"
+date: "3/20/2022"
 output: github_document
 ---
 
