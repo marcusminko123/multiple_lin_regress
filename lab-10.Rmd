@@ -11,17 +11,56 @@ output: github_document
 library(tidyverse) 
 library(tidymodels)
 library(openintro)
+?evals
+view(evals)
+
+#Simple Linear Regression
+m_bty = lm(score ~ bty_avg, data = evals)
+summary(m_bty)
 ```
 
-### Exercise 1
+1- m_bty = 3.88 +.07(bty_avg) R-squared = .04, Adj R sq = .03 
+2- Only about 3-4% of the variance in scores is explained by this model.
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+### Multiple Linear Regression
 
-### Exercise 2
+```{r mlr}
+m_bty_gen = lm(score~bty_avg + gender, data = evals)
+summary(m_bty_gen)
+#m_bty_gen = 3.88 +.07(bty_avg) + (.17)(gender) 
+#3- All else being equal, men attain scores .17 higher than females on ratings
+#4- Roughly 6% of the variance in scores is explained by gender and beauty rating
+#5- m_bty_gen = 3.88 +.07(bty_avg) + .17
+#6- Males
+#7- Males tend to recieve slightly higher scores than females despite being rated equally beautiful
+#8- The R-squared of m_bty_gen is about .03 greater then the R-squared of m_bty meaning that gender has about the same influence on scores as beauty, though both are quite low around 3% of variance explained
+#9- The slopes for bty_avg are about the same 
+#10-
+m_bty_rank = lm(score~bty_avg + rank, data = evals)
+summary(m_bty_rank)
+#m_bty_rank = 3.98 + .07(bty_avg) -.16(tenure track) -.13(tenured)
+#Assuming equal beauty ratings, teaching faculty received scores .16 and .13 higher than tenure-track and tenured faculty, respectively.
+```
 
-...
+### More Predictors
 
-Add exercise headings as needed.
+```{r}
+#11- I would not expect class credits to have much influence on scores
+#12- 
+m_cls = lm(score~cls_credits, data = evals)
+summary(m_cls)
+# m_cls = 4.15 + (.48)(cls_credits) R-squared is about the same as gender and beauty
+#13- It seems unnecessary to include cls_did_eval because if you know the number of students and the percentage that did evals, you don't need cls_did_eval
+#14-
+m_all= lm(score~ gender + rank + ethnicity + language + age + cls_perc_eval + cls_students + cls_level + cls_profs + cls_credits + bty_avg, data=evals)
+summary(m_all)
+#15-
+m_subset = lm(score~ bty_avg + gender + ethnicity + cls_perc_eval + cls_credits, data=evals)
+summary(m_subset)
+#score = 3.14 +.16(gender) + .23(notminority) + .07(bty_avg) + .005(cls_perc_eval) + .54(one credit)
+#16- All else held constant, males score .16 points higher than females on average. All others held constant, a 1 point increase in beauty average is associated with an increase in .07 in their scores. 
+#17- Professor would be an attractive, majority male teaching a one-credit course with a higher percentage of the students completing evaluations.
+#18- I think these results could be generalized to schools with comparable demographics to the University of Texas.
+```
+
+
